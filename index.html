@@ -14,11 +14,45 @@
     .checklist input { margin-right: 10px; }
     .footer { text-align: center; color: #6b7280; margin-top: 40px; }
   </style>
+  <script>
+    // Load saved checkbox states
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
+        cb.checked = localStorage.getItem('cb_' + i) === 'true';
+        cb.addEventListener('change', () => {
+          localStorage.setItem('cb_' + i, cb.checked);
+        });
+      });
+
+      // Countdown timer
+      const examDate = new Date('2026-03-14T09:00:00');
+      const timer = document.getElementById('countdown');
+      if (timer) {
+        setInterval(() => {
+          const now = new Date();
+          const diff = examDate - now;
+          if (diff <= 0) {
+            timer.innerText = 'Exam time! Stay calm and confident.';
+            return;
+          }
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const mins = Math.floor((diff / (1000 * 60)) % 60);
+          timer.innerText = `${days} days ${hours} hrs ${mins} mins left`;
+        }, 1000);
+      }
+    });
+  </script>
 </head>
 <body>
 
   <h1>📘 BARC CSE Preparation Hub</h1>
   <p>All free resources + progress tracking for BARC Computer Science Exam (2026).</p>
+
+  <div class="section">
+    <h2>⏳ Exam Countdown</h2>
+    <p id="countdown" style="font-size: 1.2em; font-weight: bold;"></p>
+  </div>
 
   <div class="section">
     <h2>📌 Progress Tracker</h2>
@@ -41,14 +75,21 @@
   <div class="section">
     <h2>🗓️ 6-Week Study Plan (BARC CSE)</h2>
     <ul>
-      <li><strong>Week 1:</strong> Programming (C, pointers), Data Structures, Algorithms basics + PYQs</li>
-      <li><strong>Week 2:</strong> Operating Systems + Computer Networks</li>
-      <li><strong>Week 3:</strong> DBMS + Computer Organization & Architecture</li>
-      <li><strong>Week 4:</strong> TOC, Compiler Design, Digital Logic, Software Engineering</li>
-      <li><strong>Week 5:</strong> Discrete Mathematics + Engineering Mathematics</li>
-      <li><strong>Week 6:</strong> Full revision, mock tests, weak-area polishing</li>
+      <li><strong>Week 1:</strong> Programming, Data Structures, Algorithms</li>
+      <li><strong>Week 2:</strong> Operating Systems, Computer Networks</li>
+      <li><strong>Week 3:</strong> DBMS, COA</li>
+      <li><strong>Week 4:</strong> TOC, Compiler, Digital Logic, Software Engineering</li>
+      <li><strong>Week 5:</strong> Discrete Math, Engineering Math</li>
+      <li><strong>Week 6:</strong> Revision, PYQs, Mock Tests</li>
     </ul>
-    <p><em>Daily target: 6–8 hours (Theory → Problems → PYQs → Revision)</em></p>
+
+    <h3>📅 Daily Study Template</h3>
+    <ul>
+      <li>2–3 hrs: Concept & Notes</li>
+      <li>2 hrs: Solved Examples</li>
+      <li>2 hrs: PYQs</li>
+      <li>1 hr: Revision + Error Notebook</li>
+    </ul>
   </div>
 
   <div class="section">
